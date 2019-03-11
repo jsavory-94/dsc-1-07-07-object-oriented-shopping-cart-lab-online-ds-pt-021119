@@ -1,9 +1,9 @@
 class ShoppingCart:
     # write your code here
-    def __init__(self, total = 0, employee_discount=None, items=[]):
-        self.total = total
-        self.employee_discount = employee_discount
-        self.items = items
+    def __init__(self, emp_discount=None):
+        self.total = 0
+        self.employee_discount = emp_discount
+        self.items = []
     
     def add_item(self, name, price, quantity=1):
         item_dict = {'name':name, 'price':price}
@@ -17,7 +17,7 @@ class ShoppingCart:
         print(self.total)
         
     def mean_item_price(self):
-       return sum(item['price'] for item in self.items)/len(self.items)
+        return sum(item['price'] for item in self.items)/len(self.items)
 
     def median_item_price(self):
         #get list of prices in ascending order
@@ -56,7 +56,8 @@ class ShoppingCart:
    
    
     def void_last_item(self):
-        print(self.items)
-        print(self.items[-1])
-        
-        #del self.items[-1]
+        if self.items:
+            removed_item = self.items.pop()
+        else:
+            return "There are no items in your cart!"
+        self.total -= removed_item['price']
